@@ -13,11 +13,10 @@ describe('PostsService', () => {
   });
 
   it('should add a new post', () => {
-    // arrange
     const initialCount = postsService['posts'].length;
-    // act
-    const newPost = postsService.create({ text: 'This is a... Toyota' })
-    // assert
+
+    const newPost = postsService.create({ text: 'This is a... Toyota' });
+
     expect(postsService['posts']).toHaveLength(initialCount + 1);
     expect(newPost).toMatchObject({
       id: '2',
@@ -27,11 +26,12 @@ describe('PostsService', () => {
   });
 
   it('should find a post', () => {
-    // arrange 
-    const existingPost = postsService['posts'][0];
-    // act
-    const findPost = postsService.find(existingPost.text);
-    // assert
-    expect(findPost).toEqual(findPost);
+    expect(postsService.find('1')).toEqual(
+      {
+        id: '1',
+        text: 'Some pre-existing post',
+        date: expect.any(String),
+      }
+    )
   });
 });
