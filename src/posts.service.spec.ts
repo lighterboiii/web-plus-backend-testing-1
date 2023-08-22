@@ -13,10 +13,25 @@ describe('PostsService', () => {
   });
 
   it('should add a new post', () => {
-    // реализуйте тест-кейс
+    // arrange
+    const initialCount = postsService['posts'].length;
+    // act
+    const newPost = postsService.create({ text: 'This is a... Toyota' })
+    // assert
+    expect(postsService['posts']).toHaveLength(initialCount + 1);
+    expect(newPost).toMatchObject({
+      id: '2',
+      text: expect.any(String),
+      date: expect.any(String),
+    })
   });
 
   it('should find a post', () => {
-    // реализуйте тест-кейс
+    // arrange 
+    const existingPost = postsService['posts'][0];
+    // act
+    const findPost = postsService.find(existingPost.text);
+    // assert
+    expect(findPost).toEqual(findPost);
   });
 });
