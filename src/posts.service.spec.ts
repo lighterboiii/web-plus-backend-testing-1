@@ -26,7 +26,7 @@ describe('PostsService', () => {
   });
 
   it('should find a post', () => {
-    expect(postsService.find('1')).toEqual(
+    expect(postsService.find('0')).toEqual(
       {
         id: '1',
         text: 'Some pre-existing post',
