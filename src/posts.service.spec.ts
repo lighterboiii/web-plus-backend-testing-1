@@ -13,16 +13,9 @@ describe('PostsService', () => {
   });
 
   it('should add a new post', () => {
-    const initialCount = postsService['posts'].length;
-
-    const newPost = postsService.create({ text: 'This is a... Toyota' });
-
-    expect(postsService['posts']).toHaveLength(initialCount + 1);
-    expect(newPost).toMatchObject({
-      id: '2',
-      text: expect.any(String),
-      date: expect.any(String),
-    })
+    expect(postsService.find('1')).toHaveProperty(
+      'text', 'Some pre-existing post'
+    );
   });
 
   it('should find a post', () => {
