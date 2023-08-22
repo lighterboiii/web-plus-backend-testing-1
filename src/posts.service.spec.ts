@@ -2,29 +2,25 @@ import { Post, PostsService } from './posts.service';
 
 describe('PostsService', () => {
   let postsService: PostsService;
-  const post: Omit<Post, 'id' | 'date'> = {
-    text: 'Mocked post',
-  };
+  let preExistingPost: Post
 
   beforeEach(async () => {
     postsService = new PostsService();
 
-    postsService.create({ text: 'Some pre-existing post' });
-  });
-
-  it('should add a new post', () => {
-    expect(postsService.find('1')).toHaveProperty(
-      'text', 'Some pre-existing post'
-    );
+    preExistingPost = postsService.create({ text: 'Some pre-existing post' });
   });
 
   it('should find a post', () => {
-    const existingPost = postsService.find('1');
+    const post = postsService.find(preExistingPost.id)
+    expect(post?.text).toEqual(preExistingPost.text)
+  });
 
-    expect(existingPost).toEqual({
-      id: '1',
-      text: 'Some pre-existing post',
-      date: expect.any(String),
-    });
+  it('should add a new post', () => {
+    const post: Omit<Post, 'id' | 'date'> = {
+      text: 'Mocked post',
+    };
+    const createdPost = postsService.create(post)
+    const foundPost = postsService.find(createdPost.id)
+    expect(foundPost?.text).toEqual(post.text)
   });
 });
